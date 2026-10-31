@@ -1,0 +1,1206 @@
+[
+  {
+    "id": "salesflow",
+    "name": "SalesFlow",
+    "description": "Fictional sales CRM for tracking leads, deals and sales automation.",
+    "categories": [
+      "crm",
+      "sales"
+    ],
+    "use_cases": [
+      "sales_pipeline"
+    ],
+    "audiences": [
+      "sales teams"
+    ],
+    "complements": [
+      "campaignflow"
+    ],
+    "plans": [
+      {
+        "id": "lite",
+        "name": "Lite",
+        "capabilities": [
+          "api",
+          "pipeline",
+          "reporting"
+        ],
+        "max_users": 10,
+        "price_minor": 800000,
+        "attributes": {
+          "deployment_mode": "cloud",
+          "automation_rules": 5
+        },
+        "upgrades_to": [
+          "pro"
+        ]
+      },
+      {
+        "id": "pro",
+        "name": "Pro",
+        "capabilities": [
+          "api",
+          "pipeline",
+          "reporting",
+          "automation",
+          "sso"
+        ],
+        "max_users": 25,
+        "price_minor": 1200000,
+        "attributes": {
+          "deployment_mode": "cloud",
+          "automation_rules": 50
+        }
+      }
+    ]
+  },
+  {
+    "id": "worksuite",
+    "name": "WorkSuite Sales",
+    "description": "Fictional CRM and workflow suite for shared sales pipelines and team reporting.",
+    "categories": [
+      "crm",
+      "workflow"
+    ],
+    "use_cases": [
+      "sales_pipeline",
+      "workflow_automation"
+    ],
+    "audiences": [
+      "sales teams",
+      "operations"
+    ],
+    "plans": [
+      {
+        "id": "team",
+        "name": "Team",
+        "capabilities": [
+          "api",
+          "pipeline",
+          "reporting",
+          "automation"
+        ],
+        "max_users": 15,
+        "price_minor": 900000,
+        "attributes": {
+          "deployment_mode": "cloud",
+          "automation_rules": 20
+        },
+        "upgrades_to": [
+          "enterprise"
+        ]
+      },
+      {
+        "id": "enterprise",
+        "name": "Enterprise",
+        "capabilities": [
+          "api",
+          "pipeline",
+          "reporting",
+          "automation",
+          "sso",
+          "audit_log"
+        ],
+        "max_users": 100,
+        "price_minor": 2200000,
+        "attributes": {
+          "deployment_mode": "cloud",
+          "automation_rules": 200
+        }
+      }
+    ]
+  },
+  {
+    "id": "supportdesk",
+    "name": "SupportDesk",
+    "description": "Fictional helpdesk for customer support tickets and service-level tracking.",
+    "categories": [
+      "helpdesk"
+    ],
+    "use_cases": [
+      "customer_support"
+    ],
+    "audiences": [
+      "support teams"
+    ],
+    "plans": [
+      {
+        "id": "team",
+        "name": "Team",
+        "capabilities": [
+          "api",
+          "ticketing",
+          "reporting"
+        ],
+        "max_users": 20,
+        "price_minor": 700000,
+        "attributes": {
+          "deployment_mode": "cloud"
+        }
+      },
+      {
+        "id": "secure",
+        "name": "Secure",
+        "capabilities": [
+          "api",
+          "ticketing",
+          "reporting",
+          "sso",
+          "audit_log"
+        ],
+        "max_users": 50,
+        "price_minor": 1500000,
+        "attributes": {
+          "deployment_mode": "cloud"
+        }
+      }
+    ]
+  },
+  {
+    "id": "campaignflow",
+    "name": "CampaignFlow",
+    "description": "Fictional email campaign and marketing automation software. Complements a CRM.",
+    "categories": [
+      "marketing"
+    ],
+    "use_cases": [
+      "marketing_campaigns"
+    ],
+    "audiences": [
+      "marketing teams"
+    ],
+    "complements": [
+      "salesflow",
+      "worksuite"
+    ],
+    "plans": [
+      {
+        "id": "team",
+        "name": "Team",
+        "capabilities": [
+          "api",
+          "email_campaigns",
+          "automation"
+        ],
+        "max_users": 10,
+        "price_minor": 600000,
+        "attributes": {
+          "deployment_mode": "cloud",
+          "contacts": 10000
+        }
+      }
+    ]
+  },
+  {
+    "id": "docpilot",
+    "name": "DocPilot",
+    "description": "Fictional document assistant for PDF extraction and invoice review.",
+    "categories": [
+      "document_ai",
+      "workflow"
+    ],
+    "use_cases": [
+      "document_extraction",
+      "invoice_review"
+    ],
+    "audiences": [
+      "operations",
+      "finance teams"
+    ],
+    "plans": [
+      {
+        "id": "starter",
+        "name": "Starter",
+        "capabilities": [
+          "pdf_extraction",
+          "invoice_review"
+        ],
+        "max_users": 5,
+        "price_minor": 400000,
+        "attributes": {
+          "deployment_mode": "cloud",
+          "included_documents_per_month": 1000
+        },
+        "upgrades_to": [
+          "business"
+        ]
+      },
+      {
+        "id": "business",
+        "name": "Business",
+        "capabilities": [
+          "api",
+          "pdf_extraction",
+          "invoice_review",
+          "audit_log"
+        ],
+        "max_users": 20,
+        "price_minor": 1100000,
+        "attributes": {
+          "deployment_mode": "cloud",
+          "included_documents_per_month": 10000
+        }
+      }
+    ]
+  },
+  {
+    "id": "leadpilot",
+    "name": "LeadPilot",
+    "description": "Fictional CRM for small sales teams that need lead capture and email follow-up.",
+    "categories": [
+      "crm",
+      "sales"
+    ],
+    "use_cases": [
+      "sales_pipeline"
+    ],
+    "audiences": [
+      "small sales teams"
+    ],
+    "plans": [
+      {
+        "id": "starter",
+        "name": "Starter",
+        "capabilities": [
+          "pipeline",
+          "email_tracking"
+        ],
+        "max_users": 5,
+        "price_minor": 350000,
+        "currency": "INR",
+        "billing_period": "month",
+        "billing_unit": "organization",
+        "attributes": {
+          "deployment_mode": "cloud",
+          "automation_rules": 0,
+          "support_level": "standard"
+        },
+        "upgrades_to": [
+          "growth"
+        ]
+      },
+      {
+        "id": "growth",
+        "name": "Growth",
+        "capabilities": [
+          "api",
+          "pipeline",
+          "email_tracking",
+          "automation"
+        ],
+        "max_users": 20,
+        "price_minor": 750000,
+        "currency": "INR",
+        "billing_period": "month",
+        "billing_unit": "organization",
+        "attributes": {
+          "deployment_mode": "cloud",
+          "automation_rules": 5,
+          "support_level": "standard"
+        }
+      }
+    ],
+    "is_synthetic": true,
+    "complements": [
+      "reachpilot"
+    ]
+  },
+  {
+    "id": "dealbridge",
+    "name": "DealBridge",
+    "description": "Fictional sales CRM focused on pipeline forecasting, account ownership and larger teams.",
+    "categories": [
+      "crm",
+      "sales"
+    ],
+    "use_cases": [
+      "sales_pipeline"
+    ],
+    "audiences": [
+      "sales teams",
+      "enterprise sales teams"
+    ],
+    "plans": [
+      {
+        "id": "professional",
+        "name": "Professional",
+        "capabilities": [
+          "api",
+          "pipeline",
+          "forecasting",
+          "reporting"
+        ],
+        "max_users": 25,
+        "price_minor": 1000000,
+        "currency": "INR",
+        "billing_period": "month",
+        "billing_unit": "organization",
+        "attributes": {
+          "deployment_mode": "cloud",
+          "automation_rules": 10,
+          "support_level": "premium"
+        },
+        "upgrades_to": [
+          "enterprise"
+        ]
+      },
+      {
+        "id": "enterprise",
+        "name": "Enterprise",
+        "capabilities": [
+          "api",
+          "pipeline",
+          "forecasting",
+          "reporting",
+          "sso",
+          "audit_log"
+        ],
+        "max_users": 100,
+        "price_minor": 2400000,
+        "currency": "INR",
+        "billing_period": "month",
+        "billing_unit": "organization",
+        "attributes": {
+          "deployment_mode": "hybrid",
+          "automation_rules": 100,
+          "support_level": "enterprise"
+        }
+      }
+    ],
+    "is_synthetic": true
+  },
+  {
+    "id": "invoicelens",
+    "name": "InvoiceLens",
+    "description": "Fictional invoice review software for finance teams with extraction and approval workflows.",
+    "categories": [
+      "document_ai",
+      "finance"
+    ],
+    "use_cases": [
+      "document_extraction",
+      "invoice_review"
+    ],
+    "audiences": [
+      "finance teams"
+    ],
+    "plans": [
+      {
+        "id": "review",
+        "name": "Review",
+        "capabilities": [
+          "pdf_extraction",
+          "invoice_review",
+          "human_review"
+        ],
+        "max_users": 8,
+        "price_minor": 500000,
+        "currency": "INR",
+        "billing_period": "month",
+        "billing_unit": "organization",
+        "attributes": {
+          "deployment_mode": "cloud",
+          "included_documents_per_month": 3000,
+          "support_level": "standard"
+        },
+        "upgrades_to": [
+          "business"
+        ]
+      },
+      {
+        "id": "business",
+        "name": "Business",
+        "capabilities": [
+          "api",
+          "pdf_extraction",
+          "invoice_review",
+          "human_review",
+          "ocr",
+          "sso"
+        ],
+        "max_users": 25,
+        "price_minor": 1250000,
+        "currency": "INR",
+        "billing_period": "month",
+        "billing_unit": "organization",
+        "attributes": {
+          "deployment_mode": "cloud",
+          "included_documents_per_month": 15000,
+          "support_level": "premium"
+        }
+      }
+    ],
+    "is_synthetic": true
+  },
+  {
+    "id": "extractflow",
+    "name": "ExtractFlow",
+    "description": "Fictional document extraction platform for teams processing high PDF volumes through APIs.",
+    "categories": [
+      "document_ai",
+      "developer_tools"
+    ],
+    "use_cases": [
+      "document_extraction"
+    ],
+    "audiences": [
+      "operations",
+      "engineering teams"
+    ],
+    "plans": [
+      {
+        "id": "team",
+        "name": "Team",
+        "capabilities": [
+          "api",
+          "pdf_extraction",
+          "ocr",
+          "webhooks"
+        ],
+        "max_users": 15,
+        "price_minor": 850000,
+        "currency": "INR",
+        "billing_period": "month",
+        "billing_unit": "organization",
+        "attributes": {
+          "deployment_mode": "cloud",
+          "included_documents_per_month": 7500,
+          "support_level": "standard"
+        },
+        "upgrades_to": [
+          "enterprise"
+        ]
+      },
+      {
+        "id": "enterprise",
+        "name": "Enterprise",
+        "capabilities": [
+          "api",
+          "pdf_extraction",
+          "ocr",
+          "webhooks",
+          "sso",
+          "audit_log"
+        ],
+        "max_users": 80,
+        "price_minor": 1800000,
+        "currency": "INR",
+        "billing_period": "month",
+        "billing_unit": "organization",
+        "attributes": {
+          "deployment_mode": "self_hosted",
+          "included_documents_per_month": 40000,
+          "support_level": "enterprise"
+        }
+      }
+    ],
+    "is_synthetic": true
+  },
+  {
+    "id": "formbridge",
+    "name": "FormBridge",
+    "description": "Fictional form extraction and human review workspace for operations teams.",
+    "categories": [
+      "document_ai",
+      "workflow"
+    ],
+    "use_cases": [
+      "document_extraction",
+      "form_processing"
+    ],
+    "audiences": [
+      "operations"
+    ],
+    "plans": [
+      {
+        "id": "review",
+        "name": "Review",
+        "capabilities": [
+          "api",
+          "pdf_extraction",
+          "structured_forms",
+          "human_review"
+        ],
+        "max_users": 10,
+        "price_minor": 600000,
+        "currency": "INR",
+        "billing_period": "month",
+        "billing_unit": "organization",
+        "attributes": {
+          "deployment_mode": "cloud",
+          "included_documents_per_month": 3000,
+          "support_level": "standard"
+        },
+        "upgrades_to": [
+          "scale"
+        ]
+      },
+      {
+        "id": "scale",
+        "name": "Scale",
+        "capabilities": [
+          "api",
+          "pdf_extraction",
+          "structured_forms",
+          "human_review",
+          "automation",
+          "audit_log"
+        ],
+        "max_users": 35,
+        "price_minor": 1400000,
+        "currency": "INR",
+        "billing_period": "month",
+        "billing_unit": "organization",
+        "attributes": {
+          "deployment_mode": "hybrid",
+          "included_documents_per_month": 20000,
+          "automation_rules": 50,
+          "support_level": "premium"
+        }
+      }
+    ],
+    "is_synthetic": true,
+    "complements": [
+      "taskweave"
+    ]
+  },
+  {
+    "id": "helporbit",
+    "name": "HelpOrbit",
+    "description": "Fictional collaborative helpdesk for customer support teams with shared ticket ownership.",
+    "categories": [
+      "helpdesk",
+      "collaboration"
+    ],
+    "use_cases": [
+      "customer_support"
+    ],
+    "audiences": [
+      "support teams"
+    ],
+    "plans": [
+      {
+        "id": "standard",
+        "name": "Standard",
+        "capabilities": [
+          "api",
+          "ticketing",
+          "collaboration",
+          "reporting"
+        ],
+        "max_users": 12,
+        "price_minor": 550000,
+        "currency": "INR",
+        "billing_period": "month",
+        "billing_unit": "organization",
+        "attributes": {
+          "deployment_mode": "cloud",
+          "support_level": "standard"
+        },
+        "upgrades_to": [
+          "business"
+        ]
+      },
+      {
+        "id": "business",
+        "name": "Business",
+        "capabilities": [
+          "api",
+          "ticketing",
+          "collaboration",
+          "reporting",
+          "knowledge_search",
+          "sso"
+        ],
+        "max_users": 40,
+        "price_minor": 1200000,
+        "currency": "INR",
+        "billing_period": "month",
+        "billing_unit": "organization",
+        "attributes": {
+          "deployment_mode": "cloud",
+          "support_level": "premium"
+        }
+      }
+    ],
+    "is_synthetic": true,
+    "complements": [
+      "answerbase"
+    ]
+  },
+  {
+    "id": "servicenest",
+    "name": "ServiceNest",
+    "description": "Fictional customer service desk with email intake, service-level tracking and escalation rules.",
+    "categories": [
+      "helpdesk",
+      "service_operations"
+    ],
+    "use_cases": [
+      "customer_support"
+    ],
+    "audiences": [
+      "support teams",
+      "service operations"
+    ],
+    "plans": [
+      {
+        "id": "starter",
+        "name": "Starter",
+        "capabilities": [
+          "ticketing",
+          "email_intake"
+        ],
+        "max_users": 8,
+        "price_minor": 400000,
+        "currency": "INR",
+        "billing_period": "month",
+        "billing_unit": "organization",
+        "attributes": {
+          "deployment_mode": "cloud",
+          "automation_rules": 0,
+          "support_level": "standard"
+        },
+        "upgrades_to": [
+          "service"
+        ]
+      },
+      {
+        "id": "service",
+        "name": "Service",
+        "capabilities": [
+          "api",
+          "ticketing",
+          "email_intake",
+          "sla_tracking",
+          "automation",
+          "sso"
+        ],
+        "max_users": 40,
+        "price_minor": 1200000,
+        "currency": "INR",
+        "billing_period": "month",
+        "billing_unit": "organization",
+        "attributes": {
+          "deployment_mode": "hybrid",
+          "automation_rules": 50,
+          "support_level": "premium"
+        }
+      }
+    ],
+    "is_synthetic": true
+  },
+  {
+    "id": "reachpilot",
+    "name": "ReachPilot",
+    "description": "Fictional email campaign tool for small marketing teams focused on segmentation.",
+    "categories": [
+      "marketing"
+    ],
+    "use_cases": [
+      "marketing_campaigns"
+    ],
+    "audiences": [
+      "small marketing teams"
+    ],
+    "plans": [
+      {
+        "id": "launch",
+        "name": "Launch",
+        "capabilities": [
+          "api",
+          "email_campaigns",
+          "segmentation"
+        ],
+        "max_users": 8,
+        "price_minor": 450000,
+        "currency": "INR",
+        "billing_period": "month",
+        "billing_unit": "organization",
+        "attributes": {
+          "deployment_mode": "cloud",
+          "contacts": 5000,
+          "support_level": "standard"
+        },
+        "upgrades_to": [
+          "scale"
+        ]
+      },
+      {
+        "id": "scale",
+        "name": "Scale",
+        "capabilities": [
+          "api",
+          "email_campaigns",
+          "segmentation",
+          "automation",
+          "reporting"
+        ],
+        "max_users": 25,
+        "price_minor": 1000000,
+        "currency": "INR",
+        "billing_period": "month",
+        "billing_unit": "organization",
+        "attributes": {
+          "deployment_mode": "cloud",
+          "contacts": 30000,
+          "automation_rules": 40,
+          "support_level": "premium"
+        }
+      }
+    ],
+    "is_synthetic": true,
+    "complements": [
+      "leadpilot"
+    ]
+  },
+  {
+    "id": "journeyflow",
+    "name": "JourneyFlow",
+    "description": "Fictional marketing journey builder for coordinated campaigns and consent management.",
+    "categories": [
+      "marketing",
+      "workflow"
+    ],
+    "use_cases": [
+      "marketing_campaigns",
+      "workflow_automation"
+    ],
+    "audiences": [
+      "marketing teams"
+    ],
+    "plans": [
+      {
+        "id": "team",
+        "name": "Team",
+        "capabilities": [
+          "api",
+          "email_campaigns",
+          "automation",
+          "journey_builder"
+        ],
+        "max_users": 15,
+        "price_minor": 800000,
+        "currency": "INR",
+        "billing_period": "month",
+        "billing_unit": "organization",
+        "attributes": {
+          "deployment_mode": "cloud",
+          "contacts": 15000,
+          "automation_rules": 30,
+          "support_level": "standard"
+        },
+        "upgrades_to": [
+          "enterprise"
+        ]
+      },
+      {
+        "id": "enterprise",
+        "name": "Enterprise",
+        "capabilities": [
+          "api",
+          "email_campaigns",
+          "automation",
+          "journey_builder",
+          "consent_management",
+          "sso",
+          "audit_log"
+        ],
+        "max_users": 75,
+        "price_minor": 1900000,
+        "currency": "INR",
+        "billing_period": "month",
+        "billing_unit": "organization",
+        "attributes": {
+          "deployment_mode": "hybrid",
+          "contacts": 100000,
+          "automation_rules": 200,
+          "support_level": "enterprise"
+        }
+      }
+    ],
+    "is_synthetic": true
+  },
+  {
+    "id": "taskweave",
+    "name": "TaskWeave",
+    "description": "Fictional task and approval workspace for coordinating recurring operational work.",
+    "categories": [
+      "workflow",
+      "collaboration"
+    ],
+    "use_cases": [
+      "workflow_automation"
+    ],
+    "audiences": [
+      "operations",
+      "project teams"
+    ],
+    "plans": [
+      {
+        "id": "basic",
+        "name": "Basic",
+        "capabilities": [
+          "task_boards",
+          "approvals"
+        ],
+        "max_users": 10,
+        "price_minor": 300000,
+        "currency": "INR",
+        "billing_period": "month",
+        "billing_unit": "organization",
+        "attributes": {
+          "deployment_mode": "cloud",
+          "automation_rules": 0,
+          "support_level": "community"
+        },
+        "upgrades_to": [
+          "automate"
+        ]
+      },
+      {
+        "id": "automate",
+        "name": "Automate",
+        "capabilities": [
+          "api",
+          "task_boards",
+          "approvals",
+          "automation"
+        ],
+        "max_users": 25,
+        "price_minor": 700000,
+        "currency": "INR",
+        "billing_period": "month",
+        "billing_unit": "organization",
+        "attributes": {
+          "deployment_mode": "cloud",
+          "automation_rules": 20,
+          "support_level": "standard"
+        }
+      }
+    ],
+    "is_synthetic": true
+  },
+  {
+    "id": "flowbridge",
+    "name": "FlowBridge",
+    "description": "Fictional workflow integration service for approvals, webhooks and cross-system automation.",
+    "categories": [
+      "workflow",
+      "integration"
+    ],
+    "use_cases": [
+      "workflow_automation"
+    ],
+    "audiences": [
+      "operations",
+      "engineering teams"
+    ],
+    "plans": [
+      {
+        "id": "managed",
+        "name": "Managed",
+        "capabilities": [
+          "api",
+          "automation",
+          "approvals",
+          "webhooks"
+        ],
+        "max_users": 20,
+        "price_minor": 900000,
+        "currency": "INR",
+        "billing_period": "month",
+        "billing_unit": "organization",
+        "attributes": {
+          "deployment_mode": "hybrid",
+          "automation_rules": 100,
+          "support_level": "premium"
+        },
+        "upgrades_to": [
+          "enterprise"
+        ]
+      },
+      {
+        "id": "enterprise",
+        "name": "Enterprise",
+        "capabilities": [
+          "api",
+          "automation",
+          "approvals",
+          "webhooks",
+          "sso",
+          "audit_log"
+        ],
+        "max_users": 75,
+        "price_minor": 1900000,
+        "currency": "INR",
+        "billing_period": "month",
+        "billing_unit": "organization",
+        "attributes": {
+          "deployment_mode": "self_hosted",
+          "automation_rules": 500,
+          "support_level": "enterprise"
+        }
+      }
+    ],
+    "is_synthetic": true
+  },
+  {
+    "id": "metricboard",
+    "name": "MetricBoard",
+    "description": "Fictional analytics dashboard product for scheduled operational reporting.",
+    "categories": [
+      "analytics",
+      "reporting"
+    ],
+    "use_cases": [
+      "analytics_reporting"
+    ],
+    "audiences": [
+      "operations",
+      "business analysts"
+    ],
+    "plans": [
+      {
+        "id": "team",
+        "name": "Team",
+        "capabilities": [
+          "api",
+          "dashboards",
+          "reporting",
+          "scheduled_reports"
+        ],
+        "max_users": 12,
+        "price_minor": 600000,
+        "currency": "INR",
+        "billing_period": "month",
+        "billing_unit": "organization",
+        "attributes": {
+          "deployment_mode": "cloud",
+          "storage_gb": 100,
+          "support_level": "standard"
+        },
+        "upgrades_to": [
+          "enterprise"
+        ]
+      },
+      {
+        "id": "enterprise",
+        "name": "Enterprise",
+        "capabilities": [
+          "api",
+          "dashboards",
+          "reporting",
+          "scheduled_reports",
+          "sso",
+          "audit_log"
+        ],
+        "max_users": 50,
+        "price_minor": 1500000,
+        "currency": "INR",
+        "billing_period": "month",
+        "billing_unit": "organization",
+        "attributes": {
+          "deployment_mode": "hybrid",
+          "storage_gb": 1000,
+          "support_level": "enterprise"
+        }
+      }
+    ],
+    "is_synthetic": true
+  },
+  {
+    "id": "insightdesk",
+    "name": "InsightDesk",
+    "description": "Fictional analytics workspace for SQL exploration and governed report access.",
+    "categories": [
+      "analytics",
+      "data_tools"
+    ],
+    "use_cases": [
+      "analytics_reporting"
+    ],
+    "audiences": [
+      "business analysts",
+      "data teams"
+    ],
+    "plans": [
+      {
+        "id": "standard",
+        "name": "Standard",
+        "capabilities": [
+          "api",
+          "dashboards",
+          "reporting",
+          "sql_query"
+        ],
+        "max_users": 20,
+        "price_minor": 850000,
+        "currency": "INR",
+        "billing_period": "month",
+        "billing_unit": "organization",
+        "attributes": {
+          "deployment_mode": "cloud",
+          "storage_gb": 500,
+          "support_level": "premium"
+        },
+        "upgrades_to": [
+          "enterprise"
+        ]
+      },
+      {
+        "id": "enterprise",
+        "name": "Enterprise",
+        "capabilities": [
+          "api",
+          "dashboards",
+          "reporting",
+          "sql_query",
+          "row_level_access",
+          "sso",
+          "audit_log"
+        ],
+        "max_users": 80,
+        "price_minor": 2100000,
+        "currency": "INR",
+        "billing_period": "month",
+        "billing_unit": "organization",
+        "attributes": {
+          "deployment_mode": "self_hosted",
+          "storage_gb": 1200,
+          "support_level": "enterprise"
+        }
+      }
+    ],
+    "is_synthetic": true
+  },
+  {
+    "id": "answerbase",
+    "name": "AnswerBase",
+    "description": "Fictional knowledge search product for support teams with citations and feedback collection.",
+    "categories": [
+      "knowledge",
+      "helpdesk"
+    ],
+    "use_cases": [
+      "knowledge_search"
+    ],
+    "audiences": [
+      "support teams"
+    ],
+    "plans": [
+      {
+        "id": "team",
+        "name": "Team",
+        "capabilities": [
+          "api",
+          "knowledge_search",
+          "citations",
+          "feedback"
+        ],
+        "max_users": 10,
+        "price_minor": 500000,
+        "currency": "INR",
+        "billing_period": "month",
+        "billing_unit": "organization",
+        "attributes": {
+          "deployment_mode": "cloud",
+          "included_documents_per_month": 2000,
+          "support_level": "standard"
+        },
+        "upgrades_to": [
+          "secure"
+        ]
+      },
+      {
+        "id": "secure",
+        "name": "Secure",
+        "capabilities": [
+          "api",
+          "knowledge_search",
+          "citations",
+          "feedback",
+          "permissions",
+          "sso",
+          "audit_log"
+        ],
+        "max_users": 50,
+        "price_minor": 1400000,
+        "currency": "INR",
+        "billing_period": "month",
+        "billing_unit": "organization",
+        "attributes": {
+          "deployment_mode": "cloud",
+          "included_documents_per_month": 15000,
+          "support_level": "enterprise"
+        }
+      }
+    ],
+    "is_synthetic": true
+  },
+  {
+    "id": "knowledgehub",
+    "name": "KnowledgeHub",
+    "description": "Fictional knowledge library with content review and deployment options for internal teams.",
+    "categories": [
+      "knowledge",
+      "collaboration"
+    ],
+    "use_cases": [
+      "knowledge_search"
+    ],
+    "audiences": [
+      "operations",
+      "internal support teams"
+    ],
+    "plans": [
+      {
+        "id": "standard",
+        "name": "Standard",
+        "capabilities": [
+          "api",
+          "knowledge_search",
+          "citations",
+          "content_review"
+        ],
+        "max_users": 20,
+        "price_minor": 650000,
+        "currency": "INR",
+        "billing_period": "month",
+        "billing_unit": "organization",
+        "attributes": {
+          "deployment_mode": "hybrid",
+          "storage_gb": 100,
+          "support_level": "standard"
+        },
+        "upgrades_to": [
+          "enterprise"
+        ]
+      },
+      {
+        "id": "enterprise",
+        "name": "Enterprise",
+        "capabilities": [
+          "api",
+          "knowledge_search",
+          "citations",
+          "content_review",
+          "multilingual",
+          "sso",
+          "audit_log"
+        ],
+        "max_users": 100,
+        "price_minor": 1600000,
+        "currency": "INR",
+        "billing_period": "month",
+        "billing_unit": "organization",
+        "attributes": {
+          "deployment_mode": "self_hosted",
+          "storage_gb": 500,
+          "support_level": "enterprise"
+        }
+      }
+    ],
+    "is_synthetic": true
+  }
+]

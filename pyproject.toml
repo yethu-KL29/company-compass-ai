@@ -1,0 +1,52 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "company-compass"
+version = "0.1.0"
+description = "Schema-aware company assistant and synthetic software catalog"
+requires-python = ">=3.12,<3.14"
+dependencies = [
+  "anyio>=4,<5",
+  "fastapi>=0.115,<1",
+  "uvicorn>=0.34,<1",
+  "pydantic-settings>=2.7,<3",
+  "langgraph>=1,<2",
+  "langchain-google-genai>=4,<5",
+  "langchain-mcp-adapters>=0.3.2,<0.4",
+  "langfuse>=5.1.0,<6",
+  "mcp>=1.20,<2",
+  "neo4j>=5.28,<7",
+  "weaviate-client>=4.16,<5",
+  "google-genai>=1,<2",
+  "httpx>=0.28,<1",
+  "beautifulsoup4>=4.13,<5",
+  "filelock>=3.16,<4",
+  "google-auth>=2,<3",
+  "pypdf>=6,<7",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8,<10", "pytest-asyncio>=1,<2", "ruff>=0.12,<1"]
+neo4j-mcp = ["neo4j-mcp-server"]
+
+[project.scripts]
+company-compass = "company_compass.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/company_compass"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+
