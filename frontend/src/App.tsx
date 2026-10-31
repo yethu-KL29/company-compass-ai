@@ -11,6 +11,7 @@ import type { Health, Product } from "./models/types";
 import { Chat } from "./features/assistant/Chat";
 import { DocumentsPage } from "./features/documents/DocumentsPage";
 import { ProductsPage } from "./features/products/ProductsPage";
+import "./admin.css";
 
 type Page = "assistant" | "documents" | "products";
 const pages = [

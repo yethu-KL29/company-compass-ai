@@ -1,0 +1,420 @@
+.public-site {
+  --public-black: #090909;
+  --public-cyan: #7de9e2;
+  --public-violet: #b79aff;
+  --public-orange: #ff9a63;
+  color: #f5f5f3;
+  background: var(--public-black);
+  min-height: 100dvh;
+  font-family: var(--font);
+}
+.public-site a {
+  color: inherit;
+}
+.public-site :focus-visible {
+  outline: 3px solid #438bf0;
+  outline-offset: 4px;
+}
+.public-nav {
+  min-height: 88px;
+  padding: 20px 5.2%;
+  background: #fff;
+  color: #151515;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+.public-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 25px;
+  font-weight: 300;
+  text-decoration: none;
+  letter-spacing: 1px;
+}
+.public-nav nav {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 30px;
+}
+.public-nav nav a {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  font-size: 13px;
+  min-height: 44px;
+}
+.public-nav .public-admin-link {
+  border: 1px solid #aaa;
+  padding: 0 20px;
+}
+.public-hero {
+  padding: 36px 5.2% 74px;
+}
+.public-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 11px;
+  letter-spacing: 1.4px;
+}
+.public-eyebrow > span {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--public-cyan);
+  box-shadow: 0 0 14px #7de9e273;
+}
+.public-hero-grid {
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  gap: 7%;
+  align-items: center;
+  padding-top: 80px;
+}
+.public-hero h1 {
+  font-family: var(--font);
+  font-size: clamp(56px, 6.3vw, 116px);
+  font-weight: 300;
+  line-height: 1.03;
+  letter-spacing: -5px;
+  margin: 0 0 28px;
+}
+.public-subtitle {
+  font-size: clamp(22px, 2.3vw, 34px);
+  font-weight: 300;
+  line-height: 1.35;
+  letter-spacing: -1px;
+  margin: 0 0 26px;
+}
+.public-description {
+  max-width: 450px;
+  color: #bcbcbc;
+  font-size: 15px;
+  line-height: 1.8;
+  margin-bottom: 32px;
+}
+.public-start {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 34px;
+  background: #f5f5f3;
+  color: #111;
+  padding: 18px 22px;
+  min-height: 56px;
+  border: 1px solid #f5f5f3;
+  border-radius: 0;
+  font-size: 13px;
+}
+.public-start:hover {
+  background: var(--public-cyan);
+  border-color: var(--public-cyan);
+}
+.public-context {
+  position: relative;
+  min-width: 0;
+}
+.public-diagram-label {
+  color: #aaa;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  margin-bottom: 50px;
+}
+.public-context svg {
+  display: block;
+  width: 100%;
+  margin-top: -23px;
+}
+.public-context svg path {
+  stroke-width: 1.8px;
+}
+.public-outcome {
+  position: absolute;
+  right: 0;
+  top: 38%;
+  text-align: right;
+  font-size: 19px;
+  line-height: 1.3;
+  margin: 0;
+  transform: translateY(-22px);
+}
+.public-diagram-footnote {
+  font-size: 10px;
+  color: #aaa;
+  letter-spacing: 1px;
+  text-align: right;
+  margin-top: 26px;
+}
+.public-guide {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1fr 1fr;
+  gap: 40px;
+  border-top: 1px solid #303030;
+  padding: 40px 5.2% 48px;
+}
+.public-guide > p {
+  font-size: 20px;
+  line-height: 1.6;
+  margin: 0;
+  font-weight: 300;
+}
+.public-guide strong {
+  font-weight: 400;
+}
+.public-guide div > span {
+  color: var(--public-cyan);
+  font-size: 10px;
+  letter-spacing: 1.3px;
+}
+.public-guide div > p {
+  color: #bcbcbc;
+  margin: 12px 0 0;
+  font-size: 13px;
+}
+.public-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 24px 5.2% 110px;
+  color: #aaa;
+  border-top: 1px solid #303030;
+  font-size: 11px;
+}
+.public-chat-launcher {
+  position: fixed;
+  z-index: 30;
+  right: max(24px, env(safe-area-inset-right));
+  bottom: max(24px, env(safe-area-inset-bottom));
+  min-height: 56px;
+  padding: 14px 22px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border: 1px solid #7de9e2;
+  border-radius: 30px;
+  background: #7de9e2;
+  color: #111;
+  box-shadow: 0 10px 40px #0005;
+  font-weight: 600;
+}
+.public-chat-widget {
+  position: fixed;
+  z-index: 40;
+  right: max(24px, env(safe-area-inset-right));
+  bottom: calc(max(24px, env(safe-area-inset-bottom)) + 72px);
+  width: min(460px, calc(100vw - 32px));
+  height: min(700px, calc(100dvh - 120px));
+  border: 1px solid #464646;
+  border-radius: 16px;
+  background: #fff;
+  color: var(--foreground);
+  box-shadow: 0 16px 80px #0008;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.public-chat-widget[hidden] {
+  display: none;
+}
+.public-widget-bar {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 12px 8px 18px;
+  background: #111;
+  color: #fff;
+}
+.public-widget-bar > span {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+}
+.public-widget-bar > button {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  background: transparent;
+  color: #fff;
+}
+.public-chat-widget .assistant-layout {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  align-items: stretch;
+}
+.public-chat-widget .chat-panel {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+.public-chat-widget .panel-heading {
+  min-height: 58px;
+  padding: 8px 16px;
+  gap: 8px;
+  flex-shrink: 0;
+}
+.public-chat-widget .panel-heading .icon-square,
+.public-chat-widget .panel-heading .small {
+  display: none;
+}
+.public-chat-widget .new-chat {
+  min-height: 44px;
+}
+.public-chat-widget .conversation {
+  flex: 1;
+  min-height: 0;
+  max-height: none;
+  padding: 18px;
+  overscroll-behavior: contain;
+}
+.public-chat-widget .welcome {
+  margin: 0 auto;
+}
+.public-chat-widget .welcome-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  margin-bottom: 14px;
+}
+.public-chat-widget .welcome-icon svg {
+  width: 24px;
+}
+.public-chat-widget .welcome h3 {
+  font-size: 23px;
+}
+.public-chat-widget .welcome p {
+  margin-bottom: 16px;
+}
+.public-chat-widget .suggestions button {
+  min-height: 44px;
+  font-size: 12px;
+}
+.public-chat-widget .composer {
+  flex-shrink: 0;
+  padding: 10px 14px 12px;
+  border-top: 1px solid var(--border);
+}
+.public-chat-widget .composer-input {
+  padding: 10px;
+}
+.public-chat-widget .composer-input textarea {
+  font-size: 16px;
+  min-width: 0;
+  max-height: 90px;
+  resize: none;
+}
+.public-chat-widget .send-button {
+  min-width: 44px;
+  height: 44px;
+}
+.public-chat-widget .composer > p {
+  font-size: 10px;
+  margin-bottom: 0;
+}
+.public-chat-widget .message {
+  overflow-wrap: anywhere;
+}
+@media (max-width: 900px) {
+  .public-hero-grid {
+    padding-top: 60px;
+    gap: 4%;
+  }
+  .public-hero h1 {
+    letter-spacing: -3px;
+  }
+  .public-outcome {
+    font-size: 15px;
+    top: 40%;
+  }
+  .public-guide {
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+  }
+}
+@media (max-width: 600px) {
+  .public-nav {
+    padding: 16px 6%;
+    min-height: 80px;
+    gap: 12px;
+  }
+  .public-brand {
+    font-size: 20px;
+    gap: 8px;
+  }
+  .public-nav nav {
+    gap: 10px;
+  }
+  .public-nav nav > a:first-child {
+    display: none;
+  }
+  .public-nav .public-admin-link {
+    padding: 0 10px;
+    font-size: 11px;
+  }
+  .public-hero {
+    padding: 30px 6% 46px;
+  }
+  .public-eyebrow {
+    font-size: 9px;
+    letter-spacing: 1px;
+  }
+  .public-hero-grid {
+    grid-template-columns: 1fr;
+    padding-top: 48px;
+    gap: 56px;
+  }
+  .public-hero h1 {
+    font-size: clamp(54px, 13vw, 78px);
+    letter-spacing: -3px;
+  }
+  .public-description {
+    font-size: 14px;
+  }
+  .public-context {
+    max-width: 420px;
+    width: 100%;
+  }
+  .public-diagram-label {
+    margin-bottom: 44px;
+  }
+  .public-outcome {
+    font-size: 15px;
+  }
+  .public-guide {
+    padding: 30px 6%;
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .public-footer {
+    padding: 24px 6% 110px;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .public-chat-launcher {
+    right: 16px;
+    bottom: max(16px, env(safe-area-inset-bottom));
+  }
+  .public-chat-widget {
+    right: 12px;
+    width: calc(100vw - 24px);
+    bottom: calc(max(16px, env(safe-area-inset-bottom)) + 72px);
+    height: min(700px, calc(100dvh - 104px));
+  }
+  .public-chat-widget .panel-heading h2 {
+    font-size: 13px;
+  }
+}

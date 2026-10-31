@@ -45,7 +45,7 @@ export function Chat() {
             <Sparkles size={18} />
           </div>
           <div>
-            <h2>Your company copilot</h2>
+            <h2>Attoforce assistant</h2>
             <p className="small muted">
               Company answers. Thoughtful product choices.
             </p>
@@ -94,7 +94,7 @@ export function Chat() {
           {turns.map((turn) => (
             <article key={turn.id} className={`message ${turn.role}`}>
               <span className="message-label">
-                {turn.role === "user" ? "You" : "Company Compass"}
+                {turn.role === "user" ? "You" : "Attoforce assistant"}
               </span>
               {turn.role === "assistant" ? (
                 <MarkdownMessage content={turn.content} />

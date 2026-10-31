@@ -1,6 +1,7 @@
 # Company Compass interface
 
-React, TypeScript and Vite with three sections:
+React, TypeScript and Vite with a public assistant page at `/` and the existing
+three-section workspace at `/admin`:
 
 - **Assistant:** streamed company answers, recommendations and comparisons in chat.
 - **Documents:** read, upload, edit and re-ingest company documents.
@@ -19,13 +20,16 @@ npm run format:check
 ```
 
 Vite serves port 5173 and proxies `/api` to the backend. Production hosting needs
-its own API routing.
+its own API routing and an SPA fallback to `index.html` for `/admin` deep links.
+The admin URL is navigation, not authorization; backend token checks protect writes.
 
 ## Structure
 
 ```text
 src/
+  Application.tsx         Public/admin entry page selection
   App.tsx                 Three-section navigation and shared admin token
+  features/public/        Attoforce-inspired page and floating shared chat
   features/assistant/     Chat view, streaming state hook, sources
   features/documents/     Library, upload and revision-aware editor
   features/products/      Product details and product/plan/specification forms
