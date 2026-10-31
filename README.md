@@ -3,7 +3,9 @@
 A Python/LangGraph company assistant using Gemini, Weaviate hybrid RAG and the official Neo4j MCP server. The catalog contains20 fictional software products and39 plans for the assignment.
 
 The user message goes directly to one tool-calling agent. It receives one unified tool list:
-Neo4j MCP `get-schema`/`read-cypher`, plus the local `company_rag` tool. Its system prompt and graph schema guide tool choice;
+Neo4j MCP `get-schema`/`read-cypher`, local `company_rag`, and `catalog_search`
+which embeds requirement text and runs Neo4j hybrid search through native MCP.
+Its system prompt and graph schema guide tool choice;
 results return to the same agent for further calls or a streamed answer.
 Async startup discovers the native MCP tools with MultiServerMCPClient.get_tools(),
 merges them with the RAG tool, then builds the workflow once.
@@ -19,7 +21,9 @@ cd ..
 ./scripts/start-dev.ps1
 ```
 
-Open http://127.0.0.1:5173. The launcher starts missing backend/frontend services in
+Open http://127.0.0.1:5173 for the public assistant, or
+http://127.0.0.1:5173/admin for the existing administration workspace.
+The launcher starts missing backend/frontend services in
 hidden processes and writes logs under ignored `data/runtime/`. Restart the backend
 after Python/configuration changes. Never commit `.env` or service-account JSON.
 
@@ -82,12 +86,18 @@ npm run format:check
 ```
 
 See [architecture](docs/implementation-architecture.md),
+[Mermaid diagrams](docs/architecture-diagrams.md),
 [requirements](docs/requirements.md), [graph schema](docs/knowledge/catalog/schema.md),
 [document management](docs/document-management.md) and [verification](docs/verification.md).
 
 Conversation memory is process-local and resets on backend restart. It is compacted
 into a bounded summary plus recent complete turns. Web search is removed. There is
 no fixed intent router, separate ranking engine or persistent conversation database.
+
+Catalog discovery uses vector/full-text reciprocal rank fusion and returns five
+current products with graph relationships. Run `uv run company-compass index-catalog`
+once to create indexes and embed existing products. Admin saves keep embeddings in
+sync. See [catalog hybrid search](docs/catalog-hybrid-search.md).
 
 ## Langfuse observability
 

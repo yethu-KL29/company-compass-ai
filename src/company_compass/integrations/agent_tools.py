@@ -42,4 +42,29 @@ async def build_tools(settings: Settings, knowledge) -> list:
                 result = {"error": "Company document retrieval is unavailable", "sources": []}
         return _bounded_json(result), result
 
-    return [*mcp_tools, company_rag]
+    all_tools = [*mcp_tools, company_rag]
+    read_cypher = next((item for item in mcp_tools if item.name == "read-cypher"), None)
+    if read_cypher is not None:
+        from company_compass.integrations.embeddings import VertexEmbeddingClient
+        from company_compass.services.catalog_search import CatalogSearch
+
+        search = CatalogSearch(
+            VertexEmbeddingClient(settings),
+            read_cypher,
+            model=settings.embedding_model,
+            dimensions=settings.embedding_dimensions,
+        )
+
+        @tool(response_format="content_and_artifact")
+        async def catalog_search(query: str) -> tuple[str, dict]:
+            """Find the top five products by description/use-case hybrid search.
+
+            Returns current product plans, capabilities, use cases, prices and
+            specifications for checking requirements. Search rank is relevance,
+            not proof that a product meets every mandatory constraint.
+            """
+            result = await search.search(query)
+            return _bounded_json(result), result
+
+        all_tools.append(catalog_search)
+    return all_tools

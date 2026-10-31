@@ -62,11 +62,24 @@ class LocalCatalogRepository:
 class Neo4jCatalogRepository:
     """Neo4j is authoritative. Immutable revision JSON also preserves DTO fidelity."""
 
-    def __init__(self, uri: str, username: str, password: str, database: str):
+    def __init__(
+        self,
+        uri: str,
+        username: str,
+        password: str,
+        database: str,
+        *,
+        embedding_client=None,
+        embedding_model: str = "",
+        embedding_dimensions: int = 1536,
+    ):
         from neo4j import GraphDatabase
 
         self.driver = GraphDatabase.driver(uri, auth=(username, password))
         self.database = database
+        self.embeddings = embedding_client
+        self.embedding_model = embedding_model
+        self.embedding_dimensions = embedding_dimensions
 
     def close(self):
         self.driver.close()
@@ -88,6 +101,93 @@ class Neo4jCatalogRepository:
                     f"CREATE CONSTRAINT {name} IF NOT EXISTS "
                     f"FOR (n:{label}) REQUIRE n.{field} IS UNIQUE"
                 ).consume()
+
+    def initialize_search(self):
+        """Explicit index setup, separate from request-time reads and writes."""
+        with self.driver.session(database=self.database) as session:
+            session.run(
+                "CREATE VECTOR INDEX catalog_product_vector IF NOT EXISTS "
+                "FOR (p:Product) ON p.search_embedding OPTIONS {indexConfig: {"
+                "`vector.dimensions`: $dimensions, `vector.similarity_function`: 'cosine'}}",
+                dimensions=self.embedding_dimensions,
+            ).consume()
+            session.run(
+                "CREATE FULLTEXT INDEX catalog_product_fulltext IF NOT EXISTS "
+                "FOR (p:Product) ON EACH [p.search_text]"
+            ).consume()
+            session.run("CALL db.awaitIndexes(30)").consume()
+            row = session.run(
+                "SHOW VECTOR INDEXES YIELD name, options "
+                "WHERE name='catalog_product_vector' RETURN options"
+            ).single()
+            if (
+                not row
+                or row["options"]["indexConfig"]["vector.dimensions"] != self.embedding_dimensions
+            ):
+                raise ValueError(
+                    "Catalog vector index dimensions differ; explicit migration required"
+                )
+
+    def _search_payload(self, product: Product) -> dict:
+        from company_compass.services.catalog_search import product_search_text, validate_vector
+
+        if product.status != "active":
+            return {
+                "search_text": None,
+                "search_embedding": None,
+                "search_model": None,
+                "search_dimensions": None,
+            }
+        if self.embeddings is None:
+            raise ValueError("Catalog embedding provider is not configured")
+        text = product_search_text(product)
+        vectors = self.embeddings.embed_documents([{"title": product.name, "text": text}])
+        if len(vectors) != 1:
+            raise ValueError("Catalog embedding provider returned an unexpected batch")
+        validate_vector(vectors[0], self.embedding_dimensions)
+        return {
+            "search_text": text,
+            "search_embedding": vectors[0],
+            "search_model": self.embedding_model,
+            "search_dimensions": self.embedding_dimensions,
+        }
+
+    def reindex_search(self) -> dict:
+        """Backfill current products without changing their publication revisions."""
+        indexed, skipped = 0, 0
+        for product in self.list_products():
+            payload = self._search_payload(product)
+            with self.driver.session(database=self.database) as session:
+                # Lock this same catalog counter used by publication, then recheck
+                # revision in a second statement to avoid publishing stale vectors.
+                def update(tx, product=product, payload=payload):
+                    tx.run(
+                        "MATCH (c:Catalog {dataset_id:$dataset}) "
+                        "SET c.catalog_version=c.catalog_version",
+                        dataset=DATASET_ID,
+                    ).consume()
+                    return tx.run(
+                        "MATCH (:Catalog {dataset_id:$dataset})-[:HAS_PRODUCT]->(p:Product)"
+                        "-[:CURRENT_REVISION]->(r:ProductRevision) "
+                        "WHERE p.id=$id AND r.revision_number=$revision "
+                        "SET p += $search RETURN count(p) AS updated",
+                        dataset=DATASET_ID,
+                        id=product.id,
+                        revision=product.revision,
+                        search=payload,
+                    ).single()
+
+                row = session.execute_write(update)
+                if row and row["updated"]:
+                    indexed += 1
+                else:
+                    skipped += 1
+        return {
+            "indexed": indexed,
+            "skipped_concurrent_updates": skipped,
+            "dimensions": self.embedding_dimensions,
+            "model": self.embedding_model,
+        }
 
     def list_products(self) -> list[Product]:
         for _ in range(2):
@@ -129,11 +229,12 @@ class Neo4jCatalogRepository:
         return next((product for product in self.list_products() if product.id == product_id), None)
 
     def publish(self, product: Product, expected_revision: int | None = None) -> Product:
+        search = self._search_payload(product) if self.embeddings is not None else None
         with self.driver.session(database=self.database) as session:
-            return session.execute_write(self._publish, product, expected_revision)
+            return session.execute_write(self._publish, product, expected_revision, search)
 
     @staticmethod
-    def _publish(tx, product, expected_revision):
+    def _publish(tx, product, expected_revision, search=None):
         # Lock the shared catalog counter before checking/changing current pointers.
         tx.run(
             """
@@ -230,6 +331,17 @@ class Neo4jCatalogRepository:
                     target_id=complement,
                     dataset=DATASET_ID,
                 ).consume()
+        tx.run(
+            "MATCH (p:Product {storage_key:$key}) SET p += $search",
+            key=key,
+            search=search
+            or {
+                "search_text": None,
+                "search_embedding": None,
+                "search_model": None,
+                "search_dimensions": None,
+            },
+        ).consume()
         return published
 
     @staticmethod

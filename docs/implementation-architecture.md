@@ -1,5 +1,31 @@
 # Implemented architecture
 
+See [Mermaid architecture diagrams](architecture-diagrams.md) for the system,
+agent, streaming, publication pipelines, graph schema and observability views.
+
+## Public and administration pages
+
+`frontend/src/Application.tsx` selects the public page at `/` and the existing
+`App` workspace at `/admin`. Full-page links keep navigation simple without adding
+a router dependency. Production hosting must serve `index.html` for `/admin`.
+
+`features/public/PublicPage.tsx` owns only the landing page and widget visibility.
+The widget mounts the existing `features/assistant/Chat.tsx` on first opening and
+keeps it mounted while minimized, preserving its streaming request and thread.
+`useChat`, the HTTP/SSE client, and `POST /api/chat/stream` are shared unchanged.
+Opening the public page does not preload the catalog or call the agent. The admin
+workspace retains its current sections, edit flows and server-side token checks.
+Moving between pages reloads the document and starts a fresh client conversation.
+
+The public theme is scoped in `features/public/public.css`. REA inspection of
+[attoforce.ai](https://attoforce.ai/) informed the white navigation, near-black
+hero, light oversized type and cyan/violet/orange convergence motif. This is a
+thematic adaptation with assignment/demo labels, not a full website reproduction.
+
+`frontend/src/admin.css` scopes the matching black/cyan palette to `.app-shell`,
+including shared chat, document forms and product editors. Existing components
+consume overridden semantic tokens; no duplicate admin screens or business logic.
+
 ## Agent workflow
 
 ```mermaid
@@ -9,6 +35,8 @@ flowchart TD
   A -->|Model chooses a tool| T[LangGraph ToolNode]
   T --> R[company_rag: Weaviate hybrid retrieval]
   T --> N[Native Neo4j MCP tools: schema and read query]
+  T --> S[catalog_search: hybrid top five and graph context]
+  S --> A
   R --> A
   N --> A
   A -->|No tool call| E[End]
@@ -26,14 +54,17 @@ A greeting can finish without a tool; an investigation can make successive calls
 
 ```python
 mcp_tools = await load_neo4j_tools(settings)  # MultiServerMCPClient.get_tools()
-all_tools = [*mcp_tools, company_rag]
+all_tools = [*mcp_tools, company_rag, catalog_search]
 ```
 
 The native get-schema/read-cypher tool objects,argument schemas and executors are
 passed intact to one agent. There is no application-authored neo4j_query wrapper,
 JSON-parameter shim,query parser or custom low-level MCP session implementation.
 The Neo4j server is configured read-only and exposes only those two MCP tools.
-There are three callable functions from two integrations: MCP and company RAG.
+There are four callable functions from two integrations: Neo4j and company RAG.
+`catalog_search` embeds requirement text and calls the native read-cypher tool for
+vector/full-text fusion, returning five current products and fixed relationships.
+See [catalog hybrid search](catalog-hybrid-search.md) for indexing and update semantics.
 The model uses read-cypher's native params object and explicitly supplies the
 catalog dataset. Authored schema/prompt instructions scope current published data;
 query scope,parameters and recommendation fit are no longer application-injected.
@@ -98,7 +129,7 @@ Free collection required HFresh; the older default vector is retained.
 `integrations` owns providers/MCP; `utils` contains bounded extraction/storage helpers.
 Secrets stay in ignored local configuration. No web-search adapter or application
 MCP query wrapper remains. Official schema diagnostics are authenticated and separate
-from the model's two tools.
+from the model's read tools.
 
 Implementation references:
 [LangGraph memory](https://docs.langchain.com/oss/python/langgraph/add-memory),

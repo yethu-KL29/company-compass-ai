@@ -9,6 +9,8 @@ def catalog_service(settings: Settings) -> CatalogService:
     if settings.app_mode == "local":
         repository = LocalCatalogRepository(settings.catalog_path)
     else:
+        from company_compass.integrations.embeddings import VertexEmbeddingClient
+
         if not all(
             (
                 settings.neo4j_uri,
@@ -22,6 +24,9 @@ def catalog_service(settings: Settings) -> CatalogService:
             settings.neo4j_username,
             settings.neo4j_password.get_secret_value(),
             settings.neo4j_database,
+            embedding_client=VertexEmbeddingClient(settings),
+            embedding_model=settings.embedding_model,
+            embedding_dimensions=settings.embedding_dimensions,
         )
     return CatalogService(repository)
 

@@ -16,7 +16,12 @@ async def test_native_mcp_tools_and_local_rag_are_merged_without_wrappers(monkey
     selected = await build_tools(Settings(_env_file=None), Mock())
     assert selected[0] is native[0]
     assert selected[1] is native[1]
-    assert [item.name for item in selected] == ["get-schema", "read-cypher", "company_rag"]
+    assert [item.name for item in selected] == [
+        "get-schema",
+        "read-cypher",
+        "company_rag",
+        "catalog_search",
+    ]
     discover.assert_awaited_once()
 
 

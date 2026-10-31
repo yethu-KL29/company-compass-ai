@@ -1,5 +1,12 @@
 # Catalog schema for Neo4j queries
 
+Start recommendation discovery with `catalog_search(query)`: hybrid search over
+product descriptions/use cases returns five products and current relationship
+context. Use native Cypher for deeper factual checks or additional eligible products.
+Search scores do not prove hard-constraint eligibility. Product nodes also contain
+internal `search_text`, `search_embedding`, `search_model`, `search_dimensions`;
+never return embedding arrays in answers or generate vector values yourself.
+
 The only catalog dataset is `attoforce-demo-v1`. Products and prices are fictional.
 Use native `read-cypher` arguments: `query` and a `params` object. Include
 `dataset: 'attoforce-demo-v1'` in params; no application wrapper injects it.

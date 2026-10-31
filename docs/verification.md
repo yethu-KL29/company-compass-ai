@@ -1,5 +1,57 @@
 # Verification
 
+## Catalog hybrid search
+
+- 161 backend tests passed; Ruff lint and formatting passed. Focused tests cover
+  text selection, vectors, lexical escaping, fusion query arguments, native MCP
+  response parsing, graph context, safe failures, publication failure isolation,
+  revision checks and retirement. Native tools retain their identity.
+- Live `index-catalog` created the vector/full-text indexes and embedded 20
+  products with gemini-embedding-001 at 1536 dimensions; no concurrent updates
+  were skipped. Product revisions and document data were not replaced.
+- Native MCP search for document automation/invoice extraction returned five
+  current products with relationship context; DocPilot ranked first by discovery
+  score. This verifies connectivity, query execution and native result parsing,
+  not a measured recall benchmark.
+- Restarted the backend to load the new tool. A real streamed chat called
+  catalog_search then read-cypher, emitted 41 token events and completed without
+  errors. Trace ID: `0b92235941e542f594a29ea782900323`.
+- The frontend was unchanged by this retrieval feature. Single-host memory reset
+  on restart as documented. Independent integration review found no blocking
+  regression; externally pre-existing incompatible index names remain a documented
+  setup limitation.
+
+## Assistant identity and Mermaid diagrams
+
+Shared chat heading and answer labels now use Attoforce assistant. All 32 frontend
+tests, production build and formatting checks passed. Seven charts in
+`architecture-diagrams.md` passed Mermaid 11.17.2 parser validation; a sequence
+message separator caught by that check was corrected. These are syntax-validated
+charts, not a claim of visual layout auditing. Validation dependencies stayed in
+ignored `data/runtime/`; application dependencies and agent behavior are unchanged.
+
+## Public page and shared chat widget (2026-10-31)
+
+- All 32 frontend tests passed, including public/admin entry selection, opening
+  without an agent request, Escape/focus restoration, Markdown rendering and
+  conversation/server-thread retention after minimizing.
+- Production build, Prettier checks and `git diff --check` passed. Backend source
+  and tests are unchanged; the earlier backend verification remains the baseline.
+- REA captured the official site's theme and the local public page at 1440px.
+  Desktop widget and 375x812 mobile captures show the composer and Close/New chat
+  controls within the viewport. Visual inspection found and corrected inherited
+  navigation/flex alignment and diagram-label positioning.
+- Desktop REA captures completed but reported cleanup timeouts; evidence was
+  recovered from partial observations. The mobile run completed with owned browser
+  termination confirmed. This is not a full accessibility audit or device test.
+- Root and `/admin` returned HTTP 200 from Vite. Streaming transport remains the
+  existing tested implementation; no new live model request or catalog mutation
+  was performed for this frontend change. Production SPA fallback is documented.
+- Subsequent admin black-theme update: production build passed; REA captured the
+  Products navigation, admin-token form, search and loading state in dark colours.
+  That scenario completed with owned browser termination confirmed. No admin save
+  or cloud mutation was executed. Palette-only changes add no new behavior tests.
+
 2026-10-31. Evidence applies to the final two-tool LangGraph refactor.
 
 | Check | Result |

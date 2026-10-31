@@ -1,5 +1,25 @@
 # Confirmed assignment requirements
 
+## Catalog semantic discovery (confirmed)
+
+Embed product descriptions and use cases, create Neo4j vector/full-text indexes,
+retrieve the top five product nodes and supply their fixed relationship context
+to the agent. Keep the single-agent workflow and native MCP access. Admin product
+edits must update searchable content; search relevance is separate from mandatory
+price/capacity eligibility. This supersedes Text-to-Cypher-only catalog discovery.
+
+## Public experience (confirmed 2026-10-31)
+
+Use Attoforce's theme concept for a separate user-facing page with a floating chat
+widget. User explicitly prioritizes architecture over copying the website exactly.
+Reuse the existing agent call and chat components; preserve the current workspace
+for document/product administration. The chosen entry paths are `/` and `/admin`.
+No agent, retrieval, MCP, memory or API changes are part of this presentation update.
+
+User subsequently requested the same black theme for the admin workspace. Apply
+the dark palette to its navigation, panels, forms and status states; retain the
+existing administration behavior.
+
 Latest user direction,2026-10-31, supersedes earlier architecture proposals.
 
 - Python application with readable models, agents, services, integrations, utilities and

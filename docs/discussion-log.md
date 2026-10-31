@@ -1,5 +1,55 @@
 # Discussion and decision log
 
+## Implemented catalog hybrid discovery
+
+User accepted embedding product descriptions/use cases, creating indexes and
+returning five matching nodes with fixed relationships. Added catalog_search to
+the same agent; it generates query embeddings in code and invokes the unchanged
+native MCP read-cypher tool for vector/full-text RRF and graph expansion. Product
+publication updates search properties transactionally; explicit index-catalog CLI
+backfills existing data without rewriting revisions. See catalog-hybrid-search.md.
+This supersedes the earlier proposal and the Text-to-Cypher-only retrieval description.
+
+## Semantic entry points for catalog graph retrieval (proposal)
+
+User clarified the desired retrieval starts with embedding similarity to relevant
+graph nodes, then relationship traversal, anticipating a larger catalog. Current
+code only uses embeddings for Weaviate company documents; catalog retrieval is
+Text-to-Cypher. Neo4j supports native vector indexes. The configured official MCP
+server exposes get-schema/read-cypher, not a text-to-vector search tool; read-cypher
+can execute supported read-only vector queries once embeddings/indexes exist.
+
+Proposed: index meaningful current plan/revision search text with the existing
+1536-dimensional embedding model, embed query text in executable provider code,
+retrieve semantic candidates, expand relationships and enforce factual constraints.
+No need to embed price/audit nodes or expose 1536-float vectors to model generation.
+Query embedding execution, revision-safe publication, candidate recall under hard
+filters and installed Neo4j version support must be resolved before implementation.
+No new graph indexes, provider calls or runtime changes were made for this discussion.
+
+Sources: https://neo4j.com/docs/mcp/current/tools/ and
+https://neo4j.com/docs/cypher-manual/current/indexes/search-indexes/vector-indexes/.
+
+## Requirement-driven graph navigation explanation
+
+For a request such as document automation, the current agent interprets the task,
+uses schema guidance and native get-schema/read-cypher tools to discover actual
+catalog vocabulary, then queries current published variants through use cases,
+capabilities, prices and typed attributes. Mapping natural language to graph values
+is model-directed and not guaranteed by a deterministic resolver. Neo4j executes
+the model-authored traversal; LangGraph only orchestrates tool calls/results.
+Broad requests may need clarification. Product retrieval currently has no graph
+embedding index, automatic clustering, DRIFT search or independent ranking service.
+
+## Assistant identity and architecture charts
+
+User requested the visible assistant name be Attoforce assistant rather than
+Company Compass. Updated the shared chat heading and assistant message label;
+internal project identifiers and tracing remain unchanged. Added seven Mermaid
+charts documenting implemented system boundaries, agent/memory loop, streaming,
+document replacement, product revision publication, Neo4j schema and trace nesting.
+No new runtime architecture or deferred features are represented as implemented.
+
 ## 2026-10-31 - Final user-directed orchestration
 
 The user explicitly replaced the earlier fixed plan/retrieve/answer approach:
@@ -111,6 +161,24 @@ Removed the screenshot's intro banner and model-information panel. Deleted their
 unused component/styles/component tests; runtime model configuration remains intact.
 User also requested example recommendation queries and an explanation of requirement-
 led selection: task fit,hard constraints,preferences,graph evidence and tradeoffs.
+
+## Separate public experience and retained admin workspace
+
+User authorized a new public interface with a right-side chat widget, while keeping
+the current application for administration. They then clarified that applying the
+Attoforce theme concept is sufficient; architecture matters more than exact visual
+replication. The pre-change code was committed as `1bacbf6` before implementation.
+
+REA captured the official site's desktop appearance: white navigation, near-black
+hero, large light text and coloured lines converging toward an outcome. Implemented
+a small themed landing page at `/` and retained the original App at `/admin`.
+The widget reuses Chat/useChat and the existing streaming endpoint, retaining its
+thread when minimized. No backend or agent orchestration changes were requested.
+Source: https://attoforce.ai/. This replaces the earlier full-clone proposal.
+
+User also requested the black theme on the admin workspace. Added scoped admin
+palette overrides in `frontend/src/admin.css`, with dark surfaces, light text,
+cyan actions and readable success/warning/error pairs. No workflow changes.
 
 ## User-level REA MCP registration
 

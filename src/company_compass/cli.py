@@ -98,7 +98,15 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
         "command",
-        choices=["serve", "check", "seed", "ingest", "mcp-check", "migrate-embeddings"],
+        choices=[
+            "serve",
+            "check",
+            "seed",
+            "ingest",
+            "mcp-check",
+            "migrate-embeddings",
+            "index-catalog",
+        ],
     )
     parser.add_argument("urls", nargs="*")
     parser.add_argument("--port", type=int, default=8010, help="Local backend port")
@@ -120,6 +128,15 @@ def main():
             seed(settings)
         elif args.command == "mcp-check":
             asyncio.run(mcp_check(settings))
+        elif args.command == "index-catalog":
+            if settings.app_mode != "cloud":
+                raise ValueError("Catalog hybrid indexes require cloud Neo4j mode")
+            catalog = catalog_service(settings)
+            try:
+                catalog.repository.initialize_search()
+                print(json.dumps(catalog.repository.reindex_search(), indent=2))
+            finally:
+                close_catalog(catalog)
         elif args.command == "migrate-embeddings":
             knowledge = KnowledgeService(
                 settings.model_copy(update={"embedding_provider": "vertex"})
