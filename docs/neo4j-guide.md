@@ -29,22 +29,22 @@ flowchart TD
 
 ## Nodes and responsibility
 
-| Node | Responsibility | Important fields |
-| --- | --- | --- |
-| Company | Company anchor; currently Attoforce | id |
-| Catalog | Dataset boundary and publication counter | dataset_id, catalog_version, ontology_version, is_synthetic |
-| Product | Stable identity across edits | id, storage_key, dataset_id, status, is_synthetic |
-| ProductRevision | Published product description and immutable snapshot | revision_id, revision_number, name, description, status, published_at, snapshot_json |
-| Variant | A plan/edition belonging to one publication | variant_node_id, variant_id, name, max_users |
-| Category | Broad classification/navigation | name, dataset_id |
-| UseCase | Actual task supported by a plan | name, dataset_id |
-| Capability | Included feature | name, dataset_id |
-| Audience | Intended user segment | name, dataset_id |
-| PriceOffer | Price and comparable billing basis | offer_id, amount_minor, currency, billing_period, billing_unit, price_type, observed_at |
-| AttributeDefinition | Specification meaning, type, unit and comparison rule | code, data_type, canonical_unit, comparison_rule, semantic_version, dataset_id |
-| AttributeValue | A plan's typed specification value | attribute_value_id, text_value/integer_value/number_value, value_state, unit |
-| Source | Provenance; currently synthetic_admin | source_id, source_kind, label |
-| ChangeEvent | Admin publication audit | event_id, action, actor_id, timestamp, catalog_version |
+| Node                | Responsibility                                        | Important fields                                                                                                  |
+| ------------------- | ----------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| Company             | Company anchor; currently Attoforce                   | id                                                                                                                |
+| Catalog             | Dataset boundary and publication counter              | dataset_id, catalog_version, ontology_version, is_synthetic                                                       |
+| Product             | Stable identity and current search representation     | id, storage_key, dataset_id, status, is_synthetic, search_text, search_embedding, search_model, search_dimensions |
+| ProductRevision     | Published product description and immutable snapshot  | revision_id, revision_number, name, description, status, published_at, snapshot_json                              |
+| Variant             | A plan/edition belonging to one publication           | variant_node_id, variant_id, name, max_users                                                                      |
+| Category            | Broad classification/navigation                       | name, dataset_id                                                                                                  |
+| UseCase             | Actual task supported by a plan                       | name, dataset_id                                                                                                  |
+| Capability          | Included feature                                      | name, dataset_id                                                                                                  |
+| Audience            | Intended user segment                                 | name, dataset_id                                                                                                  |
+| PriceOffer          | Price and comparable billing basis                    | offer_id, amount_minor, currency, billing_period, billing_unit, price_type, observed_at                           |
+| AttributeDefinition | Specification meaning, type, unit and comparison rule | code, data_type, canonical_unit, comparison_rule, semantic_version, dataset_id                                    |
+| AttributeValue      | A plan's typed specification value                    | attribute_value_id, text_value/integer_value/number_value, value_state, unit                                      |
+| Source              | Provenance; currently synthetic_admin                 | source_id, source_kind, label                                                                                     |
+| ChangeEvent         | Admin publication audit                               | event_id, action, actor_id, timestamp, catalog_version                                                            |
 
 Company currently stores only its identifier. Real company descriptions, publishing
 policies and other uploaded documents are retrieved from Weaviate, not these nodes.
@@ -144,8 +144,19 @@ for this assignment; there is no multi-company selector implemented.
 ## How the agent uses it
 
 Async startup discovers native Neo4j get-schema/read-cypher tools and merges them
-with company_rag. One Gemini agent decides what to call and can inspect results
+with company_rag and catalog_search. One Gemini agent decides what to call and can inspect results
 before another call. get-schema describes structure; read-cypher retrieves facts.
+
+get-schema reports node labels, property names/types, relationship types/directions
+and connected labels, including relationship properties. It does not list actual
+product descriptions, prices or embeddings. The fixed schema file adds business
+rules, such as current-revision selection and comparable price units.
+
+catalog_search generates a query embedding from requirement text and calls native
+read-cypher with that vector as a parameter. Neo4j fuses vector/full-text rankings
+over current product descriptions/use cases, returns five candidates and expands
+their fixed plan relationships. Further native Cypher checks can follow. See
+[hybrid search](catalog-hybrid-search.md) and [architecture diagrams](architecture-diagrams.md).
 No company/product classification pipeline, web tool, DRIFT, clustering or separate
 ranking engine sits between the agent and tools. The model generates Cypher with
 constraints and explains retrieved evidence. Recommendation quality remains an

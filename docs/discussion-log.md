@@ -1,5 +1,14 @@
 # Discussion and decision log
 
+## Setup and documentation consolidation
+
+User requested complete installation/setup and Mermaid documentation. Rebuilt the
+README with repository-backed prerequisites, cloud/local boundaries, Google auth,
+native MCP executable setup, ordered seed/index/ingest steps, four-tool behavior
+and inline system/agent diagrams. Added docs/setup.md for migration, persistent
+manifests, troubleshooting and hosting boundaries. No application behavior or cloud
+data changed during this documentation update.
+
 ## Implemented catalog hybrid discovery
 
 User accepted embedding product descriptions/use cases, creating indexes and

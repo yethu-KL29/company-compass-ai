@@ -65,12 +65,13 @@ There are four callable functions from two integrations: Neo4j and company RAG.
 `catalog_search` embeds requirement text and calls the native read-cypher tool for
 vector/full-text fusion, returning five current products and fixed relationships.
 See [catalog hybrid search](catalog-hybrid-search.md) for indexing and update semantics.
-The model uses read-cypher's native params object and explicitly supplies the
-catalog dataset. Authored schema/prompt instructions scope current published data;
-query scope,parameters and recommendation fit are no longer application-injected.
+For direct read-cypher calls the model supplies native query/params, including the
+catalog dataset. catalog_search owns its fixed retrieval query and injects the
+dataset, vector, lexical terms and bounds in executable code. Prompt/schema guidance
+governs further model-authored queries and interpretation of recommendation fit.
 
 ServiceContainer.initialize() awaits discovery during FastAPI lifespan,merges the
-local RAG tool,and compiles the graph once before serving requests. It is idempotent.
+local RAG and catalog-search tools,and compiles the graph once before serving requests. It is idempotent.
 Discovery uses adapter0.3.2's get_tools(),not an unsupported async client context
 manager. Per-call MCP sessions are managed by the adapter. Discovery failure is
 reported at startup rather than silently replacing catalog access. No configured
@@ -121,8 +122,10 @@ query Neo4j MCP directly.
 Gemini uses `langchain-google-genai` with Vertex service-account/ADC authentication,
 medium reasoning and native tool calling/streaming. Google Embedding 001 supplies
 normalized 1536-dimensional vectors to the Weaviate `google_1536` named vector.
-Hybrid retrieval uses BM25+dense search and active document versions. The existing
-Free collection required HFresh; the older default vector is retained.
+Document hybrid retrieval uses BM25+dense search and active document versions.
+Current collection creation uses HFresh; legacy vectors can remain after migration.
+Catalog descriptions/use cases use the same embedding model in Neo4j, with lexical
+and vector ranks fused before traversing fixed relationships.
 
 `main.py` wires routes; `core` owns settings/resources; `models` contains contracts;
 `repositories` owns persistence; `services` owns admin/domain operations;

@@ -69,4 +69,4 @@ also send their expected revision. Text is never rendered as executable HTML.
 Tests cover incremental text before completion, UTF-8/frame boundaries, thread reuse,
 new-chat/unmount cancellation, interrupted streams, server errors, navigation and
 admin operations. Mocked tests do not establish live provider integration. Current
-streaming UI visual checks are reported separately by the parent verification run.
+streaming UI visual checks are recorded in [verification](../docs/verification.md).

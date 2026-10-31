@@ -1,5 +1,23 @@
 # Verification
 
+## Documentation and setup review
+
+README now includes installation, cloud configuration, Google auth, native MCP
+executable resolution, seed/index/ingest order, user/admin URLs, inline Mermaid
+diagrams, four-tool behavior and local-mode limits. Added setup/migration and
+troubleshooting guidance. Configuration was checked against Settings, CLI, package
+metadata, launcher and storage implementations.
+
+`uv sync --frozen --extra dev --extra neo4j-mcp --python 3.12 --dry-run` reported
+no environment changes. CLI help and the installed MCP executable's help succeeded.
+The locked package installs neo4j-mcp-server.exe, correcting the earlier path.
+Local links across 12 Markdown files resolved. These are documentation checks,
+not a fresh-machine installation or a repeat of cloud initialization. No runtime
+behavior, credentials or cloud records changed in this update.
+
+All 12 Mermaid blocks across README and top-level docs passed Mermaid 11.17.2
+parser validation. Modified Markdown formatting and git whitespace checks passed.
+
 ## Catalog hybrid search
 
 - 161 backend tests passed; Ruff lint and formatting passed. Focused tests cover
@@ -54,15 +72,15 @@ ignored `data/runtime/`; application dependencies and agent behavior are unchang
 
 2026-10-31. Evidence applies to the final two-tool LangGraph refactor.
 
-| Check | Result |
-| --- | --- |
-| Backend pytest | 137 passed after native MCP refactor; includes tracing, tool selection, streaming, memory, cancellation and admin/ingestion regressions |
-| Frontend | 25 tests passed, TypeScript/Vite production build and Prettier passed |
-| Python | Ruff lint/format and whitespace checks passed |
-| Tool boundary | Exactly company_rag and neo4j_query; no web tool, fixed planner or application MCP wrapper |
-| Native tool loop | Model-selected successive tool calls, no-tool greeting, native messages/signatures and iteration bound covered |
-| Streaming | Actual HTTP SSE delivered multiple token events before completion; frontend tests verify partial UTF-8/frames and text before done |
-| Admin regression | Document upload/edit/re-ingestion, ID/revision preservation, indexing failure, conflicts and product publishing pass isolated tests |
+| Check            | Result                                                                                                                                  |
+| ---------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| Backend pytest   | 137 passed after native MCP refactor; includes tracing, tool selection, streaming, memory, cancellation and admin/ingestion regressions |
+| Frontend         | 25 tests passed, TypeScript/Vite production build and Prettier passed                                                                   |
+| Python           | Ruff lint/format and whitespace checks passed                                                                                           |
+| Tool boundary    | Exactly company_rag and neo4j_query; no web tool, fixed planner or application MCP wrapper                                              |
+| Native tool loop | Model-selected successive tool calls, no-tool greeting, native messages/signatures and iteration bound covered                          |
+| Streaming        | Actual HTTP SSE delivered multiple token events before completion; frontend tests verify partial UTF-8/frames and text before done      |
+| Admin regression | Document upload/edit/re-ingestion, ID/revision preservation, indexing failure, conflicts and product publishing pass isolated tests     |
 
 ## Live evidence
 
@@ -77,7 +95,7 @@ ignored `data/runtime/`; application dependencies and agent behavior are unchang
 - A forced 500-token compaction test with the real model summarized an earlier RAG
   turn into 1511 characters, retained 2 messages, and correctly recalled 10 users,
   INR 10000/month per organization and mandatory API. The production threshold remains
- 6000; the lower value was test-only.
+  6000; the lower value was test-only.
 - A product run delivered first public text at 44.56 seconds and completed at 50.20s;
   follow-up began at 4.03s and completed at 8.06s. These are single smoke observations,
   not latency guarantees. MCP process startup contributes overhead.
