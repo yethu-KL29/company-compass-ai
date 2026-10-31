@@ -1,5 +1,12 @@
 # Confirmed assignment requirements
 
+## Recommendation presentation
+
+User requested that recommendations stop repeating a demo disclaimer. The assistant
+should lead with relevant plans, constraints and evidence. Existing UI/documentation
+labels retain the catalog's synthetic status; questions about authenticity must be
+answered honestly. Products must not be presented as verified official offerings.
+
 ## Catalog semantic discovery (confirmed)
 
 Embed product descriptions and use cases, create Neo4j vector/full-text indexes,

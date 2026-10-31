@@ -1,5 +1,16 @@
 # Verification
 
+## Recommendation wording update
+
+Removed the instruction to repeat a fictional/demo preamble on every recommendation.
+UI disclosures and truthful authenticity handling remain. All 161 backend tests
+passed. After backend restart, the user's 8,000-invoice / human-review / API /
+INR20,000 requirement completed with 44 token events and no errors. The answer
+led with requirements and plan recommendations. Trace ID:
+`37b9c7b301494db39b1b6bc3ca13837f`. This is one observed response, not a guarantee
+of identical wording on every model generation. Outgoing commits were checked
+against configured secret values before the user-authorized GitHub push.
+
 ## Documentation and setup review
 
 README now includes installation, cloud configuration, Google auth, native MCP

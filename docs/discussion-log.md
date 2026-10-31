@@ -1,5 +1,13 @@
 # Discussion and decision log
 
+## Recommendation disclaimer and GitHub publication
+
+User reported the repeated demo preamble and requested pushing the code to GitHub.
+Changed the prompt to lead with requirements/evidence and avoid routine synthetic-
+catalog disclaimers in every response, while retaining UI disclosures and truthful
+answers about authenticity. User explicitly authorized pushing to the configured
+GitHub remote. No catalog data or retrieval logic changed.
+
 ## Setup and documentation consolidation
 
 User requested complete installation/setup and Mermaid documentation. Rebuilt the
