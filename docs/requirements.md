@@ -1,5 +1,13 @@
 # Confirmed assignment requirements
 
+## Production plan and repository hygiene
+
+User requested a production guardrail plan in the README/documentation, proper
+environment-file ignore rules, a complete secret-free .env.example, professional
+repository conventions and a GitHub push. Production control recommendations must
+be distinguished from implemented assignment behavior. Keep the working architecture
+and avoid presenting unimplemented guardrail infrastructure as complete.
+
 ## Recommendation presentation
 
 User requested that recommendations stop repeating a demo disclaimer. The assistant

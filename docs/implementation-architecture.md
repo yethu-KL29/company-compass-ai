@@ -1,5 +1,9 @@
 # Implemented architecture
 
+This page describes the current assignment runtime. Required production controls
+and their acceptance gates are tracked separately in the
+[production readiness and guardrail plan](production-readiness-plan.md).
+
 See [Mermaid architecture diagrams](architecture-diagrams.md) for the system,
 agent, streaming, publication pipelines, graph schema and observability views.
 

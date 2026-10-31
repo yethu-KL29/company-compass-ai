@@ -1,5 +1,15 @@
 # Discussion and decision log
 
+## Production guardrails and professional repository hygiene
+
+User requested production guardrail planning, README updates, environment/secret
+ignore rules, a proper .env.example and GitHub publication. Added an actionable
+production-readiness plan with current controls, proposed phases and acceptance
+checks. Expanded secret/local-file exclusions; the root .env.example remains public
+and contains blank credentials. Added editor/line-ending conventions without mass
+reformatting or altering the single-agent architecture. Production identity,
+query/output enforcement and operational controls remain planned, not implemented.
+
 ## Recommendation disclaimer and GitHub publication
 
 User reported the repeated demo preamble and requested pushing the code to GitHub.

@@ -1,5 +1,21 @@
 # Setup details and troubleshooting
 
+The project remains an assignment. Read the [production guardrail plan](production-readiness-plan.md)
+before deploying it beyond local evaluation; controls described there as planned
+are not enabled by copying environment variables.
+
+`.env.example` lists every Settings field, with blank secrets, tracing content off
+and admin writes disabled until a token is configured. Generate a token locally
+and place it only in `.env` or managed secrets, for example:
+
+```powershell
+uv run python -c "import secrets; print(secrets.token_urlsafe(32))"
+```
+
+The root template is the only environment file intended for Git. Other environment
+files, credentials/private keys and runtime logs are ignored. Ignore rules do not
+untrack committed files or revoke credentials; audit history separately.
+
 Follow the [README](../README.md) for ordered installation and first-run commands.
 This page explains configuration, persistent state and recovery. It does not
 introduce another deployment platform.

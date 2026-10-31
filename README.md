@@ -227,6 +227,26 @@ group turns into sessions. Native callbacks capture model/tool/compaction activi
 Content capture defaults off. Enable `LANGFUSE_CAPTURE_CONTENT=true` only for data
 appropriate to export; masking is not comprehensive confidential-data classification.
 
+## Production readiness and guardrails
+
+This repository is a working assignment, **not yet a production-ready service**.
+Existing controls include read-only MCP tools, protected admin writes, typed/bounded
+inputs, revision checks, safe Markdown, trace masking and a bounded graph loop.
+Prompt rules guide grounding and untrusted-content handling; they are not executable
+authorization or proof that every generated recommendation is correct.
+
+Before production, add identity/RBAC, independently enforced dataset isolation,
+per-call query/tool policies, input/output and sensitive-data guardrails, factual
+recommendation validation, guarded streaming, rate/concurrency/cost budgets,
+durable state, monitored readiness and CI security checks. Each needs measured
+acceptance evidence. See the [production readiness and guardrail plan](docs/production-readiness-plan.md).
+
+Real environment files, credentials, private keys and runtime logs are ignored.
+Only the root `.env.example` is tracked as a secret-free template. Use deployment
+secret storage/workload identity for production; `.gitignore` does not remove
+previously tracked secrets. Editor/line-ending conventions are in `.editorconfig`
+and `.gitattributes`; Ruff and Prettier remain the code-formatting authorities.
+
 ## Local mode and limitations
 
 For UI/admin exploration without cloud stores, use `APP_MODE=local`, leave
@@ -275,6 +295,7 @@ benchmark. See [verification](docs/verification.md).
 ## Documentation
 
 - [Setup and troubleshooting](docs/setup.md)
+- [Production readiness and guardrail plan](docs/production-readiness-plan.md)
 - [Implemented architecture](docs/implementation-architecture.md)
 - [Mermaid system, sequence, schema and tracing diagrams](docs/architecture-diagrams.md)
 - [Catalog hybrid search](docs/catalog-hybrid-search.md)

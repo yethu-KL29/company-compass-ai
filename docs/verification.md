@@ -1,5 +1,25 @@
 # Verification
 
+## Environment hygiene and production planning
+
+Expanded ignore patterns cover local environment files, credential/private-key
+files and runtime logs while retaining only the root .env.example. All 36 Settings
+fields are represented exactly once in the template, with blank credentials;
+parsing confirms admin publication is disabled without a configured token and
+trace content capture is off. Ignore behavior was checked with representative
+root/nested environment and secret paths.
+
+A read-only security specialist reviewed current controls and production gaps.
+Identity/thread ownership, independent query scope, aggregate budgets, output
+validation before streaming and retention/persistence remain planned release gates.
+No penetration test or dependency vulnerability scan is claimed. Added editor and
+line-ending conventions without mass source refactoring. All 13 Mermaid charts
+passed parser validation; local documentation links were checked separately.
+
+All 161 backend tests passed after this change. Configured-secret values were
+checked against tracked history and the working diff, with no matches; no actual
+credentials were printed or placed in the template. The runtime .env was unchanged.
+
 ## Recommendation wording update
 
 Removed the instruction to repeat a fictional/demo preamble on every recommendation.
