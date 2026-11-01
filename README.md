@@ -148,25 +148,26 @@ data, follow [migration guidance](docs/setup.md#existing-data-and-embedding-chan
 
 ## 4. Start
 
-Windows launcher:
+Run from the repository root. Start both services with the Windows script
+(works from Command Prompt or PowerShell):
 
 ```powershell
-./scripts/start-dev.ps1
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File ".\scripts\start-dev.ps1"
 ```
 
 It starts missing services in hidden processes and logs under `data/runtime/`.
 It leaves healthy processes running. Restart the backend after Python or `.env`
 changes; running the launcher again does not reload an existing healthy backend.
 
-Alternatively, run two foreground terminals:
+Or start the backend and frontend separately in two terminals:
 
 ```powershell
 # Terminal 1: repository root
-uv run company-compass serve --port 8010
+uv run python -m company_compass.cli serve --port 8010
 ```
 
 ```powershell
-# Terminal 2
+# Terminal 2: repository root
 cd frontend
 npm run dev -- --port 5173 --strictPort
 ```

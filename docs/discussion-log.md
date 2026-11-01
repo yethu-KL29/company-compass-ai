@@ -1,5 +1,12 @@
 # Discussion and decision log
 
+## Simplified running commands
+
+User requested two clear README startup options: the Windows launcher invoked with
+an execution-policy bypass and separate backend/frontend terminal commands. Updated
+the run section and used the explicit Python module command for the backend. No
+application behavior changed.
+
 ## Production guardrails and professional repository hygiene
 
 User requested production guardrail planning, README updates, environment/secret
